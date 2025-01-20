@@ -2,289 +2,266 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="oever.art — A 1-Billion-Dollar Luxury Experience with Crown of Flowers Video" />
+  <meta name="description" content="oever.art — 1-Billion-Dollar Experience with Full Background Video" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oever.art – Crown of Flowers Placeholder & 90% Transparent Background</title>
+  <title>oever.art – Full-Height Background Video</title>
 
-  <!-- Inline, Combined, and Minified CSS -->
+  <!-- Single-File, Inline CSS (Black & White Theme + Yellow Accents, 90% Transparent Overlay) -->
   <style>
-    /* Base Reset & Globals */
-    html, body {
-      margin: 0; 
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      background: #000; /* Black base */
-      color: #fff;      /* White text */
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
+    html,body {margin:0;padding:0;width:100%;height:100%;font-family:Arial,sans-serif;overflow-x:hidden;scroll-behavior:smooth;background:#000;color:#fff}
     :root {
-      --color-bg: #000;
-      --color-fg: #fff;
-      --color-accent: #ffd700; /* Yellow accent */
-      --transition-speed: 0.3s;
-      --container-width: 1200px;
-      --overlay-alpha: 0.1; /* 10% black => 90% transparency */
+      --color-accent: #ffd700; /* Yellow */
+      --overlay-alpha: 0.1;    /* 10% black, 90% transparent */
+      --transition: 0.3s;
+      --max-width: 1200px;
     }
 
-    /* Transparent Overlay (10% black) across the entire site */
-    #site-overlay {
+    /* Fullscreen Background Video Container */
+    #video-bg-container {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,var(--overlay-alpha)); /* 10% black, 90% transparent */
-      z-index: 1;
-      pointer-events: none; /* Let user interact with the site below */
+      top:0; left:0;
+      width:100vw; 
+      height:100vh;
+      z-index:-1; /* behind content */
+      overflow:hidden;
+    }
+    #backgroundVideo {
+      width:100%; 
+      height:100%;
+      object-fit:cover; 
+      position:absolute; 
+      top:0; 
+      left:0;
     }
 
-    /* Header with text-based Menu */
-    header {
-      position: relative;
-      z-index: 2; /* Above the overlay to ensure clickable links */
-      background: #000;
-      padding: 1rem 0;
+    /* 90% transparent overlay (10% black) across entire screen */
+    #globalOverlay {
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100vw; 
+      height: 100vh;
+      background: rgba(0,0,0,var(--overlay-alpha));
+      z-index: 0;
+      pointer-events: none;
     }
-    .nav-bar {
-      max-width: var(--container-width);
-      width: 90%;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+
+    /* Header & Navigation (Text-based) */
+    header {
+      position: relative; 
+      z-index:2;
+      background:#000;
+      padding:1rem 0;
+    }
+    .nav-wrapper {
+      width:90%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
     }
     .branding {
-      font-size: 1.8rem;
-      letter-spacing: 1px;
-      color: #fff;
+      font-size:1.8rem; 
+      letter-spacing:1px; 
+      color:#fff;
     }
-    .nav-links {
-      list-style: none;
-      display: flex;
-      gap: 1rem;
-    }
+    .nav-links {list-style:none;display:flex;gap:1rem}
     .nav-links a {
-      color: rgba(255,255,255,0.8);
-      text-decoration: none;
-      transition: color var(--transition-speed);
+      color:rgba(255,255,255,0.8);
+      text-decoration:none;
+      transition: color var(--transition);
     }
     .nav-links a:hover {
-      color: var(--color-accent);
+      color:var(--color-accent);
     }
 
-    /* Main Content Sections */
+    /* Section Base */
     section {
-      position: relative;
-      z-index: 2; /* Above site overlay */
-      width: 90%;
-      max-width: var(--container-width);
-      margin: 0 auto;
-      padding: 3rem 1rem;
-      text-align: center;
+      position: relative; 
+      z-index:2; 
+      width:90%; 
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:3rem 1rem; 
+      text-align:center;
     }
     .section-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
+      font-size:2rem;
+      margin-bottom:1rem;
     }
     .section-subtitle {
-      max-width: 700px;
-      margin: 0 auto 2rem auto;
-      line-height: 1.5;
-      color: rgba(255,255,255,0.8);
+      max-width:700px;
+      margin:0 auto 2rem;
+      line-height:1.5;
+      color:rgba(255,255,255,0.8);
     }
 
     /* Hero */
     .hero {
-      min-height: 90vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
-    .hero-content {
-      max-width: 80%;
-      margin-top: 3rem;
-    }
-    .hero-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #fff;
-    }
-    .hero-subtitle {
-      font-size: 1rem;
-      max-width: 600px;
-      margin: 0 auto 1.5rem auto;
-      line-height: 1.5;
-      color: #ccc;
-    }
+    .hero-content {max-width:80%;margin-top:2rem}
+    .hero-title {font-size:2rem;margin-bottom:1rem;color:#fff}
+    .hero-subtitle {font-size:1rem;max-width:600px;line-height:1.5;margin:0 auto 1.5rem;color:#ccc}
     .btn-accent {
-      background: var(--color-accent);
-      color: #000;
-      border: none;
-      padding: 0.75rem 2rem;
-      cursor: pointer;
-      transition: background var(--transition-speed), transform var(--transition-speed);
-      font-weight: 600;
+      background:var(--color-accent); 
+      color:#000; 
+      border:none;
+      padding:0.75rem 2rem; 
+      cursor:pointer;
+      transition:transform var(--transition), background var(--transition);
+      font-weight:600;
     }
     .btn-accent:hover {
-      background: #fff68f; /* Slight variation of gold */
-      transform: scale(1.05);
+      background:#fff68f;
+      transform:scale(1.05);
     }
 
     /* Gallery */
     .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-      gap: 1rem;
-      margin-top: 2rem;
+      display:grid; 
+      gap:1rem;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      margin-top:2rem;
     }
     .gallery-item {
-      background: #111;
-      border: 1px solid #333;
-      overflow: hidden;
-      transition: transform var(--transition-speed);
-      cursor: pointer;
+      background:#111; 
+      border:1px solid #333;
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform var(--transition);
     }
-    .gallery-item img,
-    .gallery-item video {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      transition: transform var(--transition-speed);
+    .gallery-item img {
+      width:100%; 
+      height:auto; 
+      transition:transform var(--transition);
+      display:block;
     }
-    .gallery-item:hover img,
-    .gallery-item:hover video {
-      transform: scale(1.05);
+    .gallery-item:hover img {
+      transform:scale(1.05);
+    }
+
+    /* Multi-step form */
+    .inquiry-form {max-width:600px;margin:2rem auto 0;text-align:left}
+    .form-steps .step {display:none}
+    .form-steps .step.active {display:block}
+    .form-steps label {display:block;margin:0.5rem 0 0.25rem}
+    .form-steps input,.form-steps select,.form-steps textarea {
+      width:100%;
+      padding:0.5rem;
+      margin-bottom:1rem;
+      border:1px solid #555;
+      background:#222;
+      color:#fff;
+    }
+    .step-buttons {
+      display:flex; 
+      justify-content:space-between;
+    }
+    .step-buttons button {
+      background:var(--color-accent);
+      color:#000; 
+      border:none;
+      padding:0.5rem 1rem;
+      cursor:pointer;
+      font-weight:500;
+      transition: background var(--transition),transform var(--transition);
+    }
+    .step-buttons button:hover {
+      background:#fff68f;
+      transform:scale(1.05);
     }
 
     /* Parallax */
     .parallax-section {
-      position: relative;
-      height: 50vh;
-      background: url('images1.jpg') no-repeat center center;
-      background-attachment: fixed;
-      background-size: cover;
-      margin: 2rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
+      position:relative;
+      height:50vh;
+      background:url('images1.jpg') no-repeat center center;
+      background-attachment:fixed;
+      background-size:cover;
+      margin:2rem 0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
     }
     .parallax-section::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 0;
+      content:"";
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,0.5);
+      z-index:0;
     }
     .parallax-content {
-      position: relative;
-      z-index: 1;
-      color: #fff;
-    }
-
-    /* Multi-Step Form */
-    .inquiry-form {
-      max-width: 600px;
-      margin: 2rem auto 0;
-      text-align: left;
-    }
-    .form-steps .step {
-      display: none;
-    }
-    .form-steps .step.active {
-      display: block;
-    }
-    .form-steps label {
-      display: block;
-      margin: 0.5rem 0 0.25rem;
-    }
-    .form-steps input[type="text"],
-    .form-steps input[type="email"],
-    .form-steps select,
-    .form-steps textarea {
-      width: 100%;
-      padding: 0.5rem;
-      margin-bottom: 1rem;
-      border: 1px solid #555;
-      background-color: #222;
-      color: #fff;
-    }
-    .step-buttons {
-      display: flex;
-      justify-content: space-between;
-    }
-    .step-buttons button {
-      background: var(--color-accent);
-      color: #000;
-      border: none;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      font-weight: 500;
-      transition: background var(--transition-speed), transform var(--transition-speed);
-    }
-    .step-buttons button:hover {
-      background: #fff68f;
-      transform: scale(1.05);
+      position:relative;
+      z-index:1;
+      color:#fff;
     }
 
     /* Footer */
     footer {
-      background: #000;
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
-      z-index: 2;
+      position:relative; 
+      z-index:2;
+      background:#000;
+      text-align:center;
+      padding:2rem 1rem;
     }
     .footer-text {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 0.5rem;
+      font-size:0.9rem;
+      color:rgba(255,255,255,0.5);
+      margin-bottom:0.5rem;
     }
     .social-links a {
-      margin: 0 0.4rem;
-      color: rgba(255,255,255,0.7);
-      text-decoration: none;
-      transition: color var(--transition-speed);
+      margin:0 0.4rem;
+      color:rgba(255,255,255,0.7);
+      text-decoration:none;
+      transition:color var(--transition);
     }
     .social-links a:hover {
-      color: var(--color-accent);
+      color:var(--color-accent);
     }
 
-    /* Rebate Prompt */
+    /* Rebate prompt */
     .rebate-section {
-      border: 2px dashed #666;
-      padding: 1rem;
-      margin: 2rem auto;
-      max-width: 700px;
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      color: rgba(255,255,255,0.8);
+      border:2px dashed #666;
+      padding:1rem;
+      margin:2rem auto;
+      max-width:700px;
+      text-align:center;
+      position:relative;
+      z-index:2;
+      color:rgba(255,255,255,0.8);
     }
     .rebate-section p {
-      margin: 0.5rem 0;
-      line-height: 1.4;
-      font-size: 0.9rem;
+      margin:0.5rem 0; 
+      line-height:1.4; 
+      font-size:0.9rem;
     }
 
     /* Responsive Tweaks */
-    @media(max-width:768px) {
+    @media(max-width:768px){
       .hero-content {margin-top:2rem}
       .gallery-grid {grid-template-columns:1fr}
     }
   </style>
 </head>
 <body>
+  <!-- Fullscreen Video -->
+  <div id="video-bg-container">
+    <video id="backgroundVideo" autoplay muted loop playsinline preload="auto">
+      <source src="/background.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
 
-  <!-- 10% black overlay across the entire site (90% transparency) -->
-  <div id="site-overlay"></div>
+  <!-- 90% transparent overlay (10% black) -->
+  <div id="globalOverlay"></div>
 
-  <!-- Header with text-based menu -->
+  <!-- Header -->
   <header>
     <div class="nav-bar">
       <div class="branding">oever.art</div>
@@ -300,10 +277,11 @@
   <!-- Hero Section -->
   <section id="hero" class="hero">
     <div class="hero-content">
-      <h2 class="hero-title">Crown of Flowers Luxury</h2>
+      <h2 class="hero-title">Crown of Flowers Full BG</h2>
       <p class="hero-subtitle">
-        Experience black &amp; white elegance with subtle hints of gold for a 
-        1-billion-dollar aesthetic. Embrace the synergy of nature-fantasy digital art.
+        Experience our black &amp; white theme with bold yellow highlights. 
+        This background video covers the entire viewport, 
+        enhanced by a subtle 90% transparency overlay.
       </p>
       <button class="btn-accent" onclick="scrollToSection('gallery')">Explore Collections</button>
     </div>
@@ -313,50 +291,43 @@
   <section id="about">
     <h2 class="section-title">Meet the Visionary</h2>
     <p class="section-subtitle">
-      Floris van den Hoever merges modern tools (3D, Dash, Studio, Photoshop) 
-      with nature &amp; fantasy elements, delivering captivating female portraits 
-      that redefine digital art.
+      Floris van den Hoever merges cutting-edge digital tools (3D, Dash, Studio, Photoshop) 
+      with nature-fantasy motifs, creating a 1-billion-dollar art experience.
     </p>
   </section>
 
-  <!-- Gallery Section -->
+  <!-- Gallery Section (static placeholders) -->
   <section id="gallery">
-    <h2 class="section-title">Showcase</h2>
+    <h2 class="section-title">Gallery</h2>
     <p class="section-subtitle">
-      Below are elegant placeholders, including a dedicated
-      <strong>Crown of Flowers</strong> video in the first slot.
+      A selection of placeholders in black &amp; white style, 
+      accented with subtle gold highlights.
     </p>
     <div class="gallery-grid">
-      <!-- FIRST PLACEHOLDER: Crown of Flowers Video -->
       <div class="gallery-item">
-        <video autoplay muted loop playsinline>
-          <source src="/crown_of_flowers.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
-      <!-- Additional placeholders (static images) -->
-      <div class="gallery-item">
-        <img src="images2.jpg" alt="Gallery Placeholder 2" />
+        <img src="images1.jpg" alt="Placeholder 1" />
       </div>
       <div class="gallery-item">
-        <img src="images3.jpg" alt="Gallery Placeholder 3" />
+        <img src="images2.jpg" alt="Placeholder 2" />
       </div>
       <div class="gallery-item">
-        <img src="images4.jpg" alt="Gallery Placeholder 4" />
+        <img src="images3.jpg" alt="Placeholder 3" />
+      </div>
+      <div class="gallery-item">
+        <img src="images4.jpg" alt="Placeholder 4" />
       </div>
     </div>
   </section>
 
-  <!-- Custom Inquiry Form -->
+  <!-- Custom Inquiry (Multi-Step Form) -->
   <section id="custom-inquiry">
     <h2 class="section-title">Commission Your Own Artwork</h2>
     <p class="section-subtitle">
-      Let us bring your vision to life. Our multi-step inquiry form guides you 
-      through the process of requesting a personalized masterpiece.
+      Our multi-step inquiry form brings your vision to life—luxury, nature, fantasy, and beyond.
     </p>
     <form class="inquiry-form" id="inquiryForm">
       <div class="form-steps">
-        <!-- STEP 1 -->
+        <!-- Step 1 -->
         <div class="step active">
           <h3>Basic Details</h3>
           <label for="name">Name</label>
@@ -365,7 +336,7 @@
           <input type="email" id="email" required placeholder="Your Email" />
           <button type="button" class="btn-accent next-btn">Next</button>
         </div>
-        <!-- STEP 2 -->
+        <!-- Step 2 -->
         <div class="step">
           <h3>Art Preferences</h3>
           <label for="style">Preferred Style</label>
@@ -381,7 +352,7 @@
             <button type="button" class="btn-accent next-btn">Next</button>
           </div>
         </div>
-        <!-- STEP 3 -->
+        <!-- Step 3 -->
         <div class="step">
           <h3>Confirmation</h3>
           <p>Review your inquiry and submit to receive a custom quote.</p>
@@ -398,11 +369,11 @@
   <section class="parallax-section">
     <div class="parallax-content">
       <h2>Nature Meets Fantasy</h2>
-      <p>Immerse yourself in an ethereal realm where black &amp; white merges with gold accents.</p>
+      <p>Where black &amp; white merges with subtle gold to create an ethereal experience.</p>
     </div>
   </section>
 
-  <!-- Footer Section -->
+  <!-- Footer -->
   <footer id="footer">
     <p class="footer-text">oever.art &copy; <span id="year"></span>. All Rights Reserved.</p>
     <p class="footer-text">Digital Art by Floris van den Hoever</p>
@@ -423,22 +394,21 @@
   <section class="rebate-section">
     <h3>Refine This Website Further</h3>
     <p>
-      All future enhancements must integrate seamlessly into this 
-      <strong>single index.html file</strong>. 
+      Always update or extend this single <strong>index.html</strong> file with new features 
+      or content while maintaining the black-and-white theme, 
+      90% transparency overlay, and the full background video.
     </p>
     <p>
-      <strong>Example:</strong> 
-      “Add additional placeholders or advanced GSAP animations for each section, 
-      maintaining the black &amp; white theme with yellow accents 
-      and the Crown of Flowers video placeholder in the gallery.”
+      <strong>Example:</strong> "Add new interactive GSAP animations for each section" 
+      or "Switch the background.mp4 to forward/reverse logic."
     </p>
   </section>
 
-  <!-- Inline JS for Smooth Scroll, Form Steps, and On-Load Events -->
+  <!-- Inline JS -->
   <script>
     document.addEventListener('DOMContentLoaded',()=>{
-      // Set the footer year
-      document.getElementById('year').textContent=new Date().getFullYear();
+      // Year in footer
+      document.getElementById('year').textContent = (new Date()).getFullYear();
 
       // Smooth scroll
       window.scrollToSection=(sectionId)=>{
@@ -446,33 +416,33 @@
         if(el) el.scrollIntoView({behavior:'smooth'});
       };
 
-      // Multi-step form
+      // Multi-step form logic
       const steps=[...document.querySelectorAll('.step')];
       const nextBtns=document.querySelectorAll('.next-btn');
       const prevBtns=document.querySelectorAll('.prev-btn');
       const form=document.getElementById('inquiryForm');
-      let currentStep=0;
+      let current=0;
 
       nextBtns.forEach(btn=>{
         btn.addEventListener('click',()=>{
-          steps[currentStep].classList.remove('active');
-          currentStep=Math.min(currentStep+1,steps.length-1);
-          steps[currentStep].classList.add('active');
+          steps[current].classList.remove('active');
+          current=Math.min(current+1,steps.length-1);
+          steps[current].classList.add('active');
         });
       });
       prevBtns.forEach(btn=>{
         btn.addEventListener('click',()=>{
-          steps[currentStep].classList.remove('active');
-          currentStep=Math.max(currentStep-1,0);
-          steps[currentStep].classList.add('active');
+          steps[current].classList.remove('active');
+          current=Math.max(current-1,0);
+          steps[current].classList.add('active');
         });
       });
       form.addEventListener('submit',(e)=>{
         e.preventDefault();
         alert('Your inquiry has been submitted. Thank you!');
         form.reset();
-        steps[currentStep].classList.remove('active');
-        currentStep=0;
+        steps[current].classList.remove('active');
+        current=0;
         steps[0].classList.add('active');
       });
     });
