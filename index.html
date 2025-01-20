@@ -2,450 +2,435 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="oever.art — 1-Billion-Dollar Experience with Full Background Video" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>oever.art – Full-Height Background Video</title>
-
-  <!-- Single-File, Inline CSS (Black & White Theme + Yellow Accents, 90% Transparent Overlay) -->
+  <title>oever.art - Luxury Showcase</title>
+  <!-- Inline Styling -->
   <style>
-    html,body {margin:0;padding:0;width:100%;height:100%;font-family:Arial,sans-serif;overflow-x:hidden;scroll-behavior:smooth;background:#000;color:#fff}
-    :root {
-      --color-accent: #ffd700; /* Yellow */
-      --overlay-alpha: 0.1;    /* 10% black, 90% transparent */
-      --transition: 0.3s;
-      --max-width: 1200px;
+    /* Global Resets */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif; /* Main body font */
+      color: #fff;
+      background-color: #000; /* In case video doesn't load */
+      overflow-x: hidden;
     }
 
-    /* Fullscreen Background Video Container */
-    #video-bg-container {
+    /* Fullscreen Video Background */
+    #video-bg {
       position: fixed;
-      top:0; left:0;
-      width:100vw; 
-      height:100vh;
-      z-index:-1; /* behind content */
-      overflow:hidden;
-    }
-    #backgroundVideo {
-      width:100%; 
-      height:100%;
-      object-fit:cover; 
-      position:absolute; 
-      top:0; 
-      left:0;
-    }
-
-    /* 90% transparent overlay (10% black) across entire screen */
-    #globalOverlay {
-      position: fixed;
-      top: 0; 
+      top: 0;
       left: 0;
-      width: 100vw; 
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; /* behind everything */
+    }
+
+    /* 10% Black Overlay */
+    .site-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
       height: 100vh;
-      background: rgba(0,0,0,var(--overlay-alpha));
-      z-index: 0;
-      pointer-events: none;
+      background: rgba(0, 0, 0, 0.1); /* 10% black */
+      z-index: 0; /* below main content, above video */
     }
 
-    /* Header & Navigation (Text-based) */
+    /* Header & Navigation */
     header {
-      position: relative; 
-      z-index:2;
-      background:#000;
-      padding:1rem 0;
+      position: relative;
+      width: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
     }
-    .nav-wrapper {
-      width:90%;
-      max-width:var(--max-width);
-      margin:0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    .brand {
+      font-family: "Playfair Display", serif; /* Luxury serif font for branding */
+      font-size: 1.5rem;
     }
-    .branding {
-      font-size:1.8rem; 
-      letter-spacing:1px; 
-      color:#fff;
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
     }
-    .nav-links {list-style:none;display:flex;gap:1rem}
-    .nav-links a {
-      color:rgba(255,255,255,0.8);
-      text-decoration:none;
-      transition: color var(--transition);
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
-    .nav-links a:hover {
-      color:var(--color-accent);
+    nav a:hover {
+      color: #ffd700; /* gold accent on hover */
     }
 
-    /* Section Base */
+    /* Section Wrappers */
     section {
-      position: relative; 
-      z-index:2; 
-      width:90%; 
-      max-width:var(--max-width);
-      margin:0 auto;
-      padding:3rem 1rem; 
-      text-align:center;
-    }
-    .section-title {
-      font-size:2rem;
-      margin-bottom:1rem;
-    }
-    .section-subtitle {
-      max-width:700px;
-      margin:0 auto 2rem;
-      line-height:1.5;
-      color:rgba(255,255,255,0.8);
+      position: relative;
+      padding: 4rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* Hero */
+    /* Hero Section */
     .hero {
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* nearly full viewport */
+      text-align: center;
     }
-    .hero-content {max-width:80%;margin-top:2rem}
-    .hero-title {font-size:2rem;margin-bottom:1rem;color:#fff}
-    .hero-subtitle {font-size:1rem;max-width:600px;line-height:1.5;margin:0 auto 1.5rem;color:#ccc}
-    .btn-accent {
-      background:var(--color-accent); 
-      color:#000; 
-      border:none;
-      padding:0.75rem 2rem; 
-      cursor:pointer;
-      transition:transform var(--transition), background var(--transition);
-      font-weight:600;
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
     }
-    .btn-accent:hover {
-      background:#fff68f;
-      transform:scale(1.05);
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    .hero button {
+      background: #ffd700; /* gold accent */
+      color: #000;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .hero button:hover {
+      transform: scale(1.05);
     }
 
-    /* Gallery */
+    /* About Section */
+    .about h2 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .about p {
+      line-height: 1.6;
+      max-width: 700px;
+      margin-bottom: 1rem;
+    }
+
+    /* Gallery Section */
     .gallery-grid {
-      display:grid; 
-      gap:1rem;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      margin-top:2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
     }
     .gallery-item {
-      background:#111; 
-      border:1px solid #333;
-      overflow:hidden;
-      cursor:pointer;
-      transition:transform var(--transition);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
     }
-    .gallery-item img {
-      width:100%; 
-      height:auto; 
-      transition:transform var(--transition);
-      display:block;
+    .gallery-item img,
+    .gallery-item video {
+      width: 100%;
+      display: block;
+      transition: transform 0.3s ease;
     }
-    .gallery-item:hover img {
-      transform:scale(1.05);
-    }
-
-    /* Multi-step form */
-    .inquiry-form {max-width:600px;margin:2rem auto 0;text-align:left}
-    .form-steps .step {display:none}
-    .form-steps .step.active {display:block}
-    .form-steps label {display:block;margin:0.5rem 0 0.25rem}
-    .form-steps input,.form-steps select,.form-steps textarea {
-      width:100%;
-      padding:0.5rem;
-      margin-bottom:1rem;
-      border:1px solid #555;
-      background:#222;
-      color:#fff;
-    }
-    .step-buttons {
-      display:flex; 
-      justify-content:space-between;
-    }
-    .step-buttons button {
-      background:var(--color-accent);
-      color:#000; 
-      border:none;
-      padding:0.5rem 1rem;
-      cursor:pointer;
-      font-weight:500;
-      transition: background var(--transition),transform var(--transition);
-    }
-    .step-buttons button:hover {
-      background:#fff68f;
-      transform:scale(1.05);
+    .gallery-item:hover img,
+    .gallery-item:hover video {
+      transform: scale(1.05);
     }
 
-    /* Parallax */
-    .parallax-section {
-      position:relative;
-      height:50vh;
-      background:url('images1.jpg') no-repeat center center;
-      background-attachment:fixed;
-      background-size:cover;
-      margin:2rem 0;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
+    /* Inquiry Section */
+    .inquiry h2 {
+      font-family: "Playfair Display", serif;
+      margin-bottom: 1rem;
     }
-    .parallax-section::before {
-      content:"";
-      position:absolute;
-      inset:0;
-      background:rgba(0,0,0,0.5);
-      z-index:0;
+    .form-step {
+      display: none; /* Hidden by default, toggled by JS */
     }
-    .parallax-content {
-      position:relative;
-      z-index:1;
-      color:#fff;
+    .form-step.active {
+      display: block;
+    }
+    .form-nav {
+      margin-top: 1rem;
+    }
+    .form-nav button {
+      background: #ffd700;
+      color: #000;
+      border: none;
+      padding: 0.5rem 1rem;
+      margin: 0 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .form-nav button:hover {
+      transform: scale(1.05);
+    }
+    .inquiry input,
+    .inquiry select,
+    .inquiry textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      background-color: #111;
+      color: #fff;
+      border: 1px solid #555;
+    }
+
+    /* Parallax Section */
+    .parallax {
+      background: url('images1.jpg') center center / cover no-repeat fixed;
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .parallax h3 {
+      font-family: "Playfair Display", serif;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 1rem;
     }
 
     /* Footer */
     footer {
-      position:relative; 
-      z-index:2;
-      background:#000;
-      text-align:center;
-      padding:2rem 1rem;
+      text-align: center;
+      padding: 2rem;
+      background: rgba(0, 0, 0, 0.8);
     }
-    .footer-text {
-      font-size:0.9rem;
-      color:rgba(255,255,255,0.5);
-      margin-bottom:0.5rem;
+    footer p {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .social-links {
+      margin-top: 0.5rem;
     }
     .social-links a {
-      margin:0 0.4rem;
-      color:rgba(255,255,255,0.7);
-      text-decoration:none;
-      transition:color var(--transition);
+      margin: 0 0.5rem;
+      color: #fff;
+      text-decoration: none;
+      transition: color 0.3s ease;
     }
     .social-links a:hover {
-      color:var(--color-accent);
+      color: #ffd700;
     }
 
-    /* Rebate prompt */
-    .rebate-section {
-      border:2px dashed #666;
-      padding:1rem;
-      margin:2rem auto;
-      max-width:700px;
-      text-align:center;
-      position:relative;
-      z-index:2;
-      color:rgba(255,255,255,0.8);
-    }
-    .rebate-section p {
-      margin:0.5rem 0; 
-      line-height:1.4; 
-      font-size:0.9rem;
+    /* "Refine" Prompt */
+    .refine-block {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-top: 2rem;
     }
 
     /* Responsive Tweaks */
-    @media(max-width:768px){
-      .hero-content {margin-top:2rem}
-      .gallery-grid {grid-template-columns:1fr}
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Fullscreen Video -->
-  <div id="video-bg-container">
-    <video id="backgroundVideo" autoplay muted loop playsinline preload="auto">
-      <source src="/background.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
-  </div>
 
-  <!-- 90% transparent overlay (10% black) -->
-  <div id="globalOverlay"></div>
+  <!-- Fullscreen Background Video -->
+  <video id="video-bg" src="background.mp4" autoplay muted loop playsinline></video>
 
-  <!-- Header -->
+  <!-- Site-Wide 10% Black Overlay -->
+  <div class="site-overlay"></div>
+
+  <!-- Header & Navigation -->
   <header>
-    <div class="nav-bar">
-      <div class="branding">oever.art</div>
-      <ul class="nav-links">
-        <li><a href="#hero">Home</a></li>
+    <div class="brand">oever.art</div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#custom-inquiry">Inquiries</a></li>
-        <li><a href="#footer">Contact</a></li>
+        <li><a href="#inquiries">Inquiries</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
-    </div>
+    </nav>
   </header>
 
   <!-- Hero Section -->
-  <section id="hero" class="hero">
-    <div class="hero-content">
-      <h2 class="hero-title">Crown of Flowers Full BG</h2>
-      <p class="hero-subtitle">
-        Experience our black &amp; white theme with bold yellow highlights. 
-        This background video covers the entire viewport, 
-        enhanced by a subtle 90% transparency overlay.
-      </p>
-      <button class="btn-accent" onclick="scrollToSection('gallery')">Explore Collections</button>
-    </div>
+  <section id="home" class="hero">
+    <h1>Crown of Flowers Full BG</h1>
+    <p>Where nature meets fantasy—experience the extraordinary artwork of Floris van den Hoever.</p>
+    <button onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'});">
+      Explore Collections
+    </button>
   </section>
 
   <!-- About Section -->
-  <section id="about">
-    <h2 class="section-title">Meet the Visionary</h2>
-    <p class="section-subtitle">
-      Floris van den Hoever merges cutting-edge digital tools (3D, Dash, Studio, Photoshop) 
-      with nature-fantasy motifs, creating a 1-billion-dollar art experience.
+  <section id="about" class="about">
+    <h2>About the Vision</h2>
+    <p>
+      Discover the story behind <strong>oever.art</strong>: a fusion of nature-fantasy aesthetics and modern digital mediums. 
+      Each piece reflects a dedication to exquisite detail, bridging imaginary worlds with real ones in a majestic dance of color and form.
     </p>
   </section>
 
-  <!-- Gallery Section (static placeholders) -->
+  <!-- Gallery Section -->
   <section id="gallery">
-    <h2 class="section-title">Gallery</h2>
-    <p class="section-subtitle">
-      A selection of placeholders in black &amp; white style, 
-      accented with subtle gold highlights.
-    </p>
+    <h2 style="font-family:'Playfair Display', serif; text-align:center; margin-bottom:2rem;">Gallery</h2>
     <div class="gallery-grid">
+      <!-- Example video item (optional) -->
       <div class="gallery-item">
-        <img src="images1.jpg" alt="Placeholder 1" />
+        <video src="crown_of_flowers.mp4" muted loop></video>
+      </div>
+      <!-- Placeholder images -->
+      <div class="gallery-item">
+        <img src="images1.jpg" alt="Gallery Item 1">
       </div>
       <div class="gallery-item">
-        <img src="images2.jpg" alt="Placeholder 2" />
+        <img src="images2.jpg" alt="Gallery Item 2">
       </div>
       <div class="gallery-item">
-        <img src="images3.jpg" alt="Placeholder 3" />
+        <img src="images3.jpg" alt="Gallery Item 3">
       </div>
       <div class="gallery-item">
-        <img src="images4.jpg" alt="Placeholder 4" />
+        <img src="images4.jpg" alt="Gallery Item 4">
       </div>
+      <!-- Add more as needed -->
     </div>
-  </section>
-
-  <!-- Custom Inquiry (Multi-Step Form) -->
-  <section id="custom-inquiry">
-    <h2 class="section-title">Commission Your Own Artwork</h2>
-    <p class="section-subtitle">
-      Our multi-step inquiry form brings your vision to life—luxury, nature, fantasy, and beyond.
-    </p>
-    <form class="inquiry-form" id="inquiryForm">
-      <div class="form-steps">
-        <!-- Step 1 -->
-        <div class="step active">
-          <h3>Basic Details</h3>
-          <label for="name">Name</label>
-          <input type="text" id="name" required placeholder="Your Name" />
-          <label for="email">Email</label>
-          <input type="email" id="email" required placeholder="Your Email" />
-          <button type="button" class="btn-accent next-btn">Next</button>
-        </div>
-        <!-- Step 2 -->
-        <div class="step">
-          <h3>Art Preferences</h3>
-          <label for="style">Preferred Style</label>
-          <select id="style">
-            <option value="fantasy">Fantasy</option>
-            <option value="nature">Nature</option>
-            <option value="abstract">Abstract</option>
-          </select>
-          <label for="details">Additional Details</label>
-          <textarea id="details" placeholder="Describe your vision..."></textarea>
-          <div class="step-buttons">
-            <button type="button" class="btn-accent prev-btn">Back</button>
-            <button type="button" class="btn-accent next-btn">Next</button>
-          </div>
-        </div>
-        <!-- Step 3 -->
-        <div class="step">
-          <h3>Confirmation</h3>
-          <p>Review your inquiry and submit to receive a custom quote.</p>
-          <div class="step-buttons">
-            <button type="button" class="btn-accent prev-btn">Back</button>
-            <button type="submit" class="btn-accent submit-btn">Submit</button>
-          </div>
-        </div>
-      </div>
-    </form>
   </section>
 
   <!-- Parallax Section -->
-  <section class="parallax-section">
-    <div class="parallax-content">
-      <h2>Nature Meets Fantasy</h2>
-      <p>Where black &amp; white merges with subtle gold to create an ethereal experience.</p>
+  <section class="parallax">
+    <h3>Where Nature Meets Fantasy</h3>
+  </section>
+
+  <!-- Inquiries / Multi-Step Form -->
+  <section id="inquiries" class="inquiry">
+    <h2>Commission Your Own Artwork</h2>
+
+    <!-- STEP 1 -->
+    <div class="form-step active" data-step="1">
+      <p>Please enter your basic information:</p>
+      <input type="text" id="name" placeholder="Your Name" />
+      <input type="email" id="email" placeholder="Your Email" />
+      <div class="form-nav">
+        <button onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 2 -->
+    <div class="form-step" data-step="2">
+      <p>Tell us about your preferences:</p>
+      <select id="style">
+        <option value="">-- Select a Style --</option>
+        <option value="Fantasy">Fantasy</option>
+        <option value="Surreal">Surreal</option>
+        <option value="Realistic">Realistic</option>
+      </select>
+      <textarea id="details" rows="4" placeholder="Additional details..."></textarea>
+      <div class="form-nav">
+        <button onclick="prevStep()">Back</button>
+        <button onclick="nextStep()">Next</button>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="form-step" data-step="3">
+      <p>Please confirm your information and submit:</p>
+      <div id="confirm-info" style="margin-bottom:1rem;"></div>
+      <div class="form-nav">
+        <button onclick="prevStep()">Back</button>
+        <button onclick="submitForm()">Submit</button>
+      </div>
     </div>
   </section>
+
+  <!-- Contact (Anchor) -->
+  <section id="contact" style="text-align:center;">
+    <h2 style="font-family:'Playfair Display', serif;">Contact</h2>
+    <p>Reach out for collaborations, custom commissions, or general inquiries.</p>
+    <p>Email: <a href="mailto:info@oever.art" style="color:#ffd700;">info@oever.art</a></p>
+  </section>
+
+  <!-- "Refine This Website Further" Prompt -->
+  <div class="refine-block">
+    <p>Refine This Website Further: Keep everything in one single <strong>index.html</strong> file for streamlined updates.</p>
+  </div>
 
   <!-- Footer -->
-  <footer id="footer">
-    <p class="footer-text">oever.art &copy; <span id="year"></span>. All Rights Reserved.</p>
-    <p class="footer-text">Digital Art by Floris van den Hoever</p>
+  <footer>
+    <p>© 2025 oever.art - All Rights Reserved</p>
     <div class="social-links">
-      <a href="#" rel="noopener">Instagram</a>|
-      <a href="#" rel="noopener">Facebook</a>|
-      <a href="#" rel="noopener">TikTok</a>
+      <a href="#!" target="_blank">Instagram</a>
+      <a href="#!" target="_blank">Facebook</a>
+      <a href="#!" target="_blank">TikTok</a>
     </div>
-    <p class="footer-text">
-      For inquiries, reach us at 
-      <a href="mailto:contact@oever.art" style="color:var(--color-accent);text-decoration:none;">
-        contact@oever.art
-      </a>
-    </p>
   </footer>
 
-  <!-- Rebate Prompt -->
-  <section class="rebate-section">
-    <h3>Refine This Website Further</h3>
-    <p>
-      Always update or extend this single <strong>index.html</strong> file with new features 
-      or content while maintaining the black-and-white theme, 
-      90% transparency overlay, and the full background video.
-    </p>
-    <p>
-      <strong>Example:</strong> "Add new interactive GSAP animations for each section" 
-      or "Switch the background.mp4 to forward/reverse logic."
-    </p>
-  </section>
-
-  <!-- Inline JS -->
+  <!-- Inline JavaScript -->
   <script>
-    document.addEventListener('DOMContentLoaded',()=>{
-      // Year in footer
-      document.getElementById('year').textContent = (new Date()).getFullYear();
+    let currentStep = 1;
 
-      // Smooth scroll
-      window.scrollToSection=(sectionId)=>{
-        const el=document.getElementById(sectionId);
-        if(el) el.scrollIntoView({behavior:'smooth'});
-      };
+    // Show next step
+    function nextStep() {
+      const currentFormStep = document.querySelector('.form-step[data-step="' + currentStep + '"]');
+      currentFormStep.classList.remove('active');
+      currentStep++;
+      const nextFormStep = document.querySelector('.form-step[data-step="' + currentStep + '"]');
+      if (nextFormStep) {
+        nextFormStep.classList.add('active');
+      }
+      updateConfirmation();
+    }
 
-      // Multi-step form logic
-      const steps=[...document.querySelectorAll('.step')];
-      const nextBtns=document.querySelectorAll('.next-btn');
-      const prevBtns=document.querySelectorAll('.prev-btn');
-      const form=document.getElementById('inquiryForm');
-      let current=0;
+    // Show previous step
+    function prevStep() {
+      const currentFormStep = document.querySelector('.form-step[data-step="' + currentStep + '"]');
+      currentFormStep.classList.remove('active');
+      currentStep--;
+      const prevFormStep = document.querySelector('.form-step[data-step="' + currentStep + '"]');
+      if (prevFormStep) {
+        prevFormStep.classList.add('active');
+      }
+      updateConfirmation();
+    }
 
-      nextBtns.forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          steps[current].classList.remove('active');
-          current=Math.min(current+1,steps.length-1);
-          steps[current].classList.add('active');
-        });
-      });
-      prevBtns.forEach(btn=>{
-        btn.addEventListener('click',()=>{
-          steps[current].classList.remove('active');
-          current=Math.max(current-1,0);
-          steps[current].classList.add('active');
-        });
-      });
-      form.addEventListener('submit',(e)=>{
-        e.preventDefault();
-        alert('Your inquiry has been submitted. Thank you!');
-        form.reset();
-        steps[current].classList.remove('active');
-        current=0;
-        steps[0].classList.add('active');
-      });
-    });
+    // Update confirmation info (Step 3)
+    function updateConfirmation() {
+      if (currentStep === 3) {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const style = document.getElementById('style').value;
+        const details = document.getElementById('details').value;
+        const confirmDiv = document.getElementById('confirm-info');
+        confirmDiv.innerHTML = `
+          <strong>Name:</strong> ${name || 'N/A'}<br/>
+          <strong>Email:</strong> ${email || 'N/A'}<br/>
+          <strong>Style Preference:</strong> ${style || 'N/A'}<br/>
+          <strong>Additional Details:</strong> ${details || 'N/A'}
+        `;
+      }
+    }
+
+    // Handle final submission
+    function submitForm() {
+      alert('Thank you! Your inquiry has been submitted.');
+      // Reset form
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('style').selectedIndex = 0;
+      document.getElementById('details').value = '';
+      // Go back to Step 1
+      document.querySelector('.form-step[data-step="3"]').classList.remove('active');
+      currentStep = 1;
+      document.querySelector('.form-step[data-step="1"]').classList.add('active');
+    }
   </script>
 </body>
 </html>
